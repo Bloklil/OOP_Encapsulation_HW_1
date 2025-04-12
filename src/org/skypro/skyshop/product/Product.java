@@ -1,8 +1,8 @@
 package org.skypro.skyshop.product;
 
 public class Product {
-    private String nameProduct;
-    private int priceProduct;
+    private final String nameProduct;
+    private final int priceProduct;
 
     public Product(String nameProduct, int priceProduct) {
         this.nameProduct = nameProduct;
@@ -13,7 +13,7 @@ public class Product {
         return nameProduct;
     }
 
-    public double getPriceProduct() {
+    public int getPriceProduct() {
         return priceProduct;
     }
 
