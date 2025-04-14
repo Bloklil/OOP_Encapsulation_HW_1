@@ -1,33 +1,43 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
         ProductBasket basket2 = new ProductBasket();
-        Product product1 = new Product("банан", 123);
-        Product product2 = new Product("кокос", 678);
-        Product product3 = new Product("хлеб", 31);
-        Product product4 = new Product("виноград", 345);
-        Product product5 = new Product("грибы", 123);
-        Product product6 = new Product("груша", 64);
-        Product product7 = new Product("рис", 99);
-        Product product8 = new Product("гречка", 123);
-        Product product9 = new Product("груша", 12);
-        basket.addProduct(product9);
-        basket.addProduct(product2);
-        basket.addProduct(product4);
-        basket.addProduct(product5);
-        basket.addProduct(product3);
-        basket.addProduct(product1);
-        basket2.addProduct(product6);
-        basket2.addProduct(product7);
-        basket2.addProduct(product8);
-        basket2.addProduct(product6);
-        basket.printBasketContents();
-        String productName = "груша";
+
+        Product banan = new SimpleProduct("банан", 123);
+        Product cocos = new SimpleProduct("кокос", 678);
+        Product chleb = new SimpleProduct("хлеб", 31);
+        Product vinograd = new SimpleProduct("виноград", 345);
+        Product gribi = new SimpleProduct("грибы", 123);
+        Product grusha = new SimpleProduct("груша", 64);
+        Product ris = new SimpleProduct("рис", 99);
+        Product grechka = new SimpleProduct("гречка", 123);
+        Product sliva = new SimpleProduct("слива", 12);
+        Product water = new DiscountedProduct("вода", 100, 10);
+        Product limonad = new DiscountedProduct("лимонад", 409, 15);
+        Product konyak = new FixPriceProduct("коньяк");
+        Product popcorn = new FixPriceProduct("попкорн");
+
+        basket.addProduct(banan);
+        basket.addProduct(limonad);
+        basket.addProduct(konyak);
+        basket.addProduct(sliva);
+        basket2.addProduct(gribi);
+        basket2.addProduct(grusha);
+        basket2.addProduct(ris);
+        basket2.addProduct(grechka);
+        basket2.addProduct(water);
+        basket2.addProduct(popcorn);
+        basket.printBasket();
+        basket.totalPrice();
+        String productName = "слива";
         String productNameTwoo = "кукуруза";
 
         if (basket.checkProduct(productName)) {
@@ -47,8 +57,7 @@ public class App {
         }
 
         basket2.clearBasket();
-        basket2.printBasketContents();
-        basket2.totalPrice();
+        basket2.printBasket();
         basket2.totalPrice();
 
         int total = basket2.totalPrice();

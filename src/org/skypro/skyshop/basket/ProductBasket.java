@@ -25,34 +25,41 @@ public class ProductBasket {
         return total;
     }
 
-        public void printBasketContents () {
-            boolean isEmpty = true;
-            for (Product product : products) {
-                if (product != null) {
-                    System.out.println(product.getNameProduct() + ": " + product.getPriceProduct());
-                    isEmpty = false;
+    public void printBasket() {
+        boolean empty = true;
+        int specialCount = 0;
+
+        for (Product product : products) {
+            if (product != null) {
+                System.out.println(product);
+                if (product.isSpecial()) {
+                    specialCount++;
                 }
-            }
-            if (isEmpty) {
-                System.out.println("В корзине пусто.");
-            } else {
-                System.out.println("Итого: " + totalPrice()+ " рублей.");
+                empty = false;
             }
         }
 
-    public boolean checkProduct (String name) {
+        if (empty) {
+            System.out.println("в корзине пусто");
+        } else {
+            System.out.println("Итого: " + totalPrice());
+            System.out.println("Специальных товаров: " + specialCount);
+        }
+    }
+
+    public boolean checkProduct(String name) {
         for (int i = 0; i < products.length; i++) {
-            if (products[i]!=null && products[i].getNameProduct().equalsIgnoreCase(name)) {
+            if (products[i] != null && products[i].getNameProduct().equalsIgnoreCase(name)) {
                 return true;
             }
         }
         return false;
     }
 
-        public void clearBasket () {
-            for (int i = 0; i < products.length; i++) {
-                products[i] = null;
-            }
-            System.out.println(" корзина очищена.");
+    public void clearBasket() {
+        for (int i = 0; i < products.length; i++) {
+            products[i] = null;
         }
+        System.out.println(" корзина очищена.");
     }
+}

@@ -1,20 +1,23 @@
 package org.skypro.skyshop.product;
 
-public class Product {
+public abstract class Product {
     private final String nameProduct;
-    private final int priceProduct;
 
-    public Product(String nameProduct, int priceProduct) {
+    public Product(String nameProduct) {
         this.nameProduct = nameProduct;
-        this.priceProduct = priceProduct;
     }
 
     public String getNameProduct() {
         return nameProduct;
     }
 
-    public int getPriceProduct() {
-        return priceProduct;
+    public abstract int getPriceProduct();
+
+    public abstract boolean isSpecial();
+
+    @Override
+    public String toString() {
+        return nameProduct;
     }
 
 }
