@@ -1,15 +1,17 @@
 package org.skypro.skyshop.product;
 
-public class FixPriceProduct extends Product {
-    private final int FIXPRICE = 199;
+import org.skypro.skyshop.Searchable;
+
+public class FixPriceProduct extends Product implements Searchable {
+    private final int fixPrice = 199;
 
     public FixPriceProduct(String nameProduct) {
         super(nameProduct);
     }
 
     @Override
-    public int getPriceProduct() {
-        return FIXPRICE;
+    public int getPrice() {
+        return fixPrice;
     }
 
     @Override
@@ -19,6 +21,21 @@ public class FixPriceProduct extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + ", фиксированная цена: " + getPriceProduct() + " рублей.";
+        return super.toString() + ", фиксированная цена: " + getPrice() + " рублей.";
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return getName();
+    }
+
+    @Override
+    public String getContent() {
+        return "FixPriceProduct";
+    }
+
+    @Override
+    public String getName() {
+        return getNameProduct();
     }
 }

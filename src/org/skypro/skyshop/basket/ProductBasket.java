@@ -19,7 +19,7 @@ public class ProductBasket {
         int total = 0;
         for (Product product : products) {
             if (product != null) {
-                total += product.getPriceProduct();
+                total += product.getPrice();
             }
         }
         return total;
