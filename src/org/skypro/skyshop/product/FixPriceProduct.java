@@ -3,7 +3,7 @@ package org.skypro.skyshop.product;
 import org.skypro.skyshop.Searchable;
 
 public class FixPriceProduct extends Product implements Searchable {
-    private final int fixPrice = 199;
+    private static final int fixPrice = 199;
 
     public FixPriceProduct(String nameProduct) {
         super(nameProduct);

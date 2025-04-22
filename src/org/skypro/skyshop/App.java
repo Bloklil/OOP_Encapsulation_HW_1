@@ -63,11 +63,9 @@ public class App {
             System.out.println(productNameTwoo + ": нету в корзине.");
         }
 
-
         basket2.clearBasket();
         basket2.printBasket();
         basket2.totalPrice();
-
 
         engine.add(limonad);
         engine.add(popcorn);
@@ -88,7 +86,6 @@ public class App {
         engine.add(articleTwo);
         engine.add(articleTree);
         engine.add(articleOne);
-
 
         int total = basket2.totalPrice();
         System.out.println("В корзине " + total + " рублей.");
