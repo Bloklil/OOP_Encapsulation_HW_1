@@ -1,6 +1,8 @@
 package org.skypro.skyshop.product;
 
-public class DiscountedProduct extends Product {
+import org.skypro.skyshop.Searchable;
+
+public class DiscountedProduct extends Product implements Searchable {
     private final int basePrice;
     private final int discountPersent;
 
@@ -10,7 +12,7 @@ public class DiscountedProduct extends Product {
         this.discountPersent = discountPersent;
     }
 
-    public int getPriceProduct() {
+    public int getPrice() {
         return basePrice * (100 - discountPersent) / 100;
     }
 
@@ -21,7 +23,22 @@ public class DiscountedProduct extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + getPriceProduct() + " (скидка: " + discountPersent + " %)";
+        return super.toString() + ": " + getPrice() + " (скидка: " + discountPersent + " %)";
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return getNameProduct();
+    }
+
+    @Override
+    public String getContent() {
+        return "DiscountedProduct";
+    }
+
+    @Override
+    public String getName() {
+        return getNameProduct();
     }
 }
 

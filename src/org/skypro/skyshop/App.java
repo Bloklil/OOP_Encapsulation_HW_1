@@ -1,5 +1,6 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
@@ -7,9 +8,12 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SimpleProduct;
 
 public class App {
+
+
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
         ProductBasket basket2 = new ProductBasket();
+        SearchEngine engine = new SearchEngine(20);
 
         Product banan = new SimpleProduct("банан", 123);
         Product cocos = new SimpleProduct("кокос", 678);
@@ -34,7 +38,10 @@ public class App {
         basket2.addProduct(ris);
         basket2.addProduct(grechka);
         basket2.addProduct(water);
-        basket2.addProduct(popcorn);
+        basket2.addProduct(sliva);
+        basket2.addProduct(water);
+        basket2.addProduct(cocos);
+        basket2.addProduct(chleb);
         basket.printBasket();
         basket.totalPrice();
         String productName = "слива";
@@ -60,6 +67,26 @@ public class App {
         basket2.printBasket();
         basket2.totalPrice();
 
+        engine.add(limonad);
+        engine.add(popcorn);
+        engine.add(konyak);
+        engine.add(grechka);
+        engine.add(chleb);
+        engine.add(cocos);
+        engine.add(gribi);
+        engine.add(vinograd);
+        engine.add(banan);
+        engine.add(grusha);
+        engine.add(ris);
+        engine.add(sliva);
+        engine.add(water);
+        Article articleTree = new Article("про бананы", "бананами нельзя кормить обезъян");
+        Article articleOne = new Article("хлеб-вреден", "хлеб вреден после 40, но это не точно");
+        Article articleTwo = new Article("полезные статьи про молоко", "как же хорошо когда есть молоко");
+        engine.add(articleTwo);
+        engine.add(articleTree);
+        engine.add(articleOne);
+
         int total = basket2.totalPrice();
         System.out.println("В корзине " + total + " рублей.");
 
@@ -69,6 +96,30 @@ public class App {
             System.out.println(productName + ": нету в корзине.");
 
         }
+        System.out.println("результаты поиска: ");
+        printResults(engine.search("бананы"));
+        printResults(engine.search("вреден"));
+
+        printSearchResults(engine.search("попкорн"));
+        printSearchResults(engine.search("вода"));
+        printSearchResults(engine.search("слива"));
     }
+
+    public static void printResults(Searchable[] results) {
+        for (Searchable s : results) {
+            if (s != null) {
+                System.out.println(s.getStringRepresentation());
+            }
+        }
+    }
+
+    private static void printSearchResults(Searchable[] results) {
+        for (Searchable item : results) {
+            if (item != null) {
+                System.out.println(item.getStringRepresentation());
+            }
+        }
+    }
+
 }
 
