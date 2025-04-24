@@ -7,6 +7,9 @@ public class SimpleProduct extends Product implements Searchable {
 
     public SimpleProduct(String nameProduct, int priceProduct) {
         super(nameProduct);
+        if (priceProduct <= 0) {
+            throw new IllegalArgumentException("Цена товара должна быть больше 0.");
+        }
         this.priceProduct = priceProduct;
     }
 

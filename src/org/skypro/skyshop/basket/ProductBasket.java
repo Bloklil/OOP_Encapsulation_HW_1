@@ -3,7 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    private Product[] products = new Product[5];
+    private final Product[] products = new Product[5];
 
     public void addProduct(Product product) {
         for (int i = 0; i < products.length; i++) {
@@ -48,8 +48,8 @@ public class ProductBasket {
     }
 
     public boolean checkProduct(String name) {
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] != null && products[i].getNameProduct().equalsIgnoreCase(name)) {
+        for (Product product : products) {
+            if (product != null && product.getNameProduct().equalsIgnoreCase(name)) {
                 return true;
             }
         }

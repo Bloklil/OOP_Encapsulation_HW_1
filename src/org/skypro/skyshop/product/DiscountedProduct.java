@@ -8,6 +8,12 @@ public class DiscountedProduct extends Product implements Searchable {
 
     public DiscountedProduct(String nameProduct, int basePrice, int discountPersent) {
         super(nameProduct);
+        if (basePrice<=0){
+            throw new IllegalArgumentException("Базовая цена должна быть больше 0.");
+        }
+        if (discountPersent < 0 || discountPersent > 100) {
+            throw new IllegalArgumentException("Скидка должна быть от 0% до 100%");
+        }
         this.basePrice = basePrice;
         this.discountPersent = discountPersent;
     }
