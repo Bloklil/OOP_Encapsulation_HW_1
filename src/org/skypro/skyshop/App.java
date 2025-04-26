@@ -7,13 +7,15 @@ import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SimpleProduct;
 
+import java.util.List;
+
 public class App {
 
 
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
         ProductBasket basket2 = new ProductBasket();
-        SearchEngine engine = new SearchEngine(20);
+        SearchEngine engine = new SearchEngine();
 
         Product banan = new SimpleProduct("банан", 123);
         Product cocos = new SimpleProduct("кокос", 678);
@@ -29,6 +31,7 @@ public class App {
         Product konyak = new FixPriceProduct("коньяк");
         Product popcorn = new FixPriceProduct("попкорн");
 
+        basket.addProduct(banan);
         basket.addProduct(banan);
         basket.addProduct(limonad);
         basket.addProduct(konyak);
@@ -63,7 +66,6 @@ public class App {
             System.out.println(productNameTwoo + ": нету в корзине.");
         }
 
-        basket2.clearBasket();
         basket2.printBasket();
         basket2.totalPrice();
 
@@ -98,7 +100,6 @@ public class App {
         }
         System.out.println("результаты поиска: ");
         printResults(engine.search("бананы"));
-        printResults(engine.search("вреден"));
 
         printSearchResults(engine.search("попкорн"));
         printSearchResults(engine.search("вода"));
@@ -117,7 +118,7 @@ public class App {
         }
 
         try {
-            Searchable bestMatch = engine.findBestMatch("банан");
+            Searchable bestMatch = engine.findBestMatch("бананы");
             System.out.println("Лучший результат поиска: " + bestMatch.getStringRepresentation());
         } catch (BestResultNotFound e) {
             System.err.println("Ошибка поиска: " + e.getMessage());
@@ -130,20 +131,39 @@ public class App {
             System.err.println("Ошибка поиска: " + e.getMessage());
         }
 
+        printRemovedProducts(basket.removeProductName("банан"));
+
+        basket.printBasket();
+
+        printRemovedProducts(basket.removeProductName("вобла"));
+
+        basket.printBasket();
+
     }
 
-    public static void printResults(Searchable[] results) {
-        for (Searchable s : results) {
+    public static void printResults(List<Searchable> print) {
+        for (Searchable s : print) {
             if (s != null) {
                 System.out.println(s.getStringRepresentation());
             }
         }
     }
 
-    private static void printSearchResults(Searchable[] results) {
-        for (Searchable item : results) {
+    private static void printSearchResults(List<Searchable> print) {
+        for (Searchable item : print) {
             if (item != null) {
                 System.out.println(item.getStringRepresentation());
+            }
+        }
+    }
+
+    private static void printRemovedProducts(List<Product> removed) {
+        if (removed.isEmpty()) {
+            System.out.println("Список пуст.");
+        } else {
+            System.out.println("Удаленные продукты:");
+            for (Product product : removed) {
+                System.out.println(product);
             }
         }
     }
