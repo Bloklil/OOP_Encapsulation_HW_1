@@ -103,6 +103,33 @@ public class App {
         printSearchResults(engine.search("попкорн"));
         printSearchResults(engine.search("вода"));
         printSearchResults(engine.search("слива"));
+
+        try {
+            Product product = new SimpleProduct("", 100);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка при создании товара: " + e.getMessage());
+        }
+
+        try {
+            Product product = new SimpleProduct("сайра", 0);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Ошибка при создании товара: " + e.getMessage());
+        }
+
+        try {
+            Searchable bestMatch = engine.findBestMatch("банан");
+            System.out.println("Лучший результат поиска: " + bestMatch.getStringRepresentation());
+        } catch (BestResultNotFound e) {
+            System.err.println("Ошибка поиска: " + e.getMessage());
+        }
+
+        try {
+            Searchable bestMatch = engine.findBestMatch("бананбананбананбанан");
+            System.out.println("Лучший результат поиска: " + bestMatch.getStringRepresentation());
+        } catch (BestResultNotFound e) {
+            System.err.println("Ошибка поиска: " + e.getMessage());
+        }
+
     }
 
     public static void printResults(Searchable[] results) {
@@ -120,6 +147,5 @@ public class App {
             }
         }
     }
-
 }
 
