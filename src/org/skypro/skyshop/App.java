@@ -161,11 +161,12 @@ public class App {
         if (removed.isEmpty()) {
             System.out.println("Список пуст.");
         } else {
-            System.out.println("Удаленные продукты:");
+            System.out.println("Удаленные продукты: ");
             for (Product product : removed) {
                 System.out.println(product);
             }
         }
     }
+
 }
 

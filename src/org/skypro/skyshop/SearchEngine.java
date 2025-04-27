@@ -5,11 +5,9 @@ import java.util.List;
 
 public class SearchEngine {
     private final List<Searchable> items = new ArrayList<>();
-    private int count;
 
     public SearchEngine() {
     }
-
 
     public void add(Searchable item) {
         items.add(item);
