@@ -85,6 +85,7 @@ public class App {
         Article articleTree = new Article("про бананы", "бананами нельзя кормить обезъян");
         Article articleOne = new Article("хлеб-вреден", "хлеб вреден после 40, но это не точно");
         Article articleTwo = new Article("полезные статьи про молоко", "как же хорошо когда есть молоко");
+
         engine.add(articleTwo);
         engine.add(articleTree);
         engine.add(articleOne);

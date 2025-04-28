@@ -57,16 +57,12 @@ public class ProductBasket {
         List<Product> removeProducts = new ArrayList<>();
         for (int i = products.size() - 1; i >= 0; i--) {
             Product product = products.get(i);
-            if (product == null || product.getNameProduct() == null) {
-                continue;
-            }
-            if (product.getNameProduct().equalsIgnoreCase(name)) {
+            if (product != null && product.getNameProduct() != null && product.getNameProduct().equalsIgnoreCase(name)) {
                 removeProducts.add(product);
                 products.remove(i);
             }
         }
         return removeProducts;
     }
-
 
 }
