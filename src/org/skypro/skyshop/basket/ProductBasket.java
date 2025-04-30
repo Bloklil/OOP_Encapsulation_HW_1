@@ -2,67 +2,56 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ProductBasket {
-    private final List<Product> products = new ArrayList<>();
+    private final Map<String, List<Product>> mapProduct = new TreeMap<>();
 
     public void addProduct(Product product) {
-        products.add(product);
+        mapProduct.computeIfAbsent(product.getNameProduct(), k -> new ArrayList<>()).add(product);
     }
 
     public int totalPrice() {
         int total = 0;
-        for (Product product : products) {
-            if (product != null) {
-                total += product.getPrice();
+        for (List<Product> sm : mapProduct.values()) {
+            for (Product g : sm) {
+                total += g.getPrice();
             }
         }
         return total;
     }
 
     public void printBasket() {
-        boolean empty = true;
+        if (mapProduct.isEmpty()) {
+            System.out.println("в корзине пусто.");
+            return;
+        }
+        int total = 0;
         int specialCount = 0;
-
-        for (Product product : products) {
-            if (product != null) {
-                System.out.println(product);
+        for (Map.Entry<String, List<Product>> entry : mapProduct.entrySet()) {
+            for (Product product : entry.getValue()) {
+                System.out.println(product.toString());
+                total += product.getPrice();
                 if (product.isSpecial()) {
                     specialCount++;
                 }
-                empty = false;
             }
         }
-
-        if (empty) {
-            System.out.println("в корзине пусто");
-        } else {
-            System.out.println("Итого: " + totalPrice());
-            System.out.println("Специальных товаров: " + specialCount);
-        }
+        System.out.println("Итого: " + totalPrice());
+        System.out.println("Специальных товаров: " + specialCount);
     }
 
     public boolean checkProduct(String name) {
-        for (Product product : products) {
-            if (product != null && product.getNameProduct().equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
+        return mapProduct.containsKey(name);
     }
 
     public List<Product> removeProductName(String name) {
-        List<Product> removeProducts = new ArrayList<>();
-        for (int i = products.size() - 1; i >= 0; i--) {
-            Product product = products.get(i);
-            if (product != null && product.getNameProduct() != null && product.getNameProduct().equalsIgnoreCase(name)) {
-                removeProducts.add(product);
-                products.remove(i);
-            }
+        List<Product> removeProducts = mapProduct.get(name);
+        if (removeProducts != null) {
+            mapProduct.remove(name);
+            return removeProducts;
+        } else {
+            return Collections.emptyList();
         }
-        return removeProducts;
     }
-
 }

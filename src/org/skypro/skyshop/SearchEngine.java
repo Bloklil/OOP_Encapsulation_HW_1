@@ -2,6 +2,7 @@ package org.skypro.skyshop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class SearchEngine {
     private final List<Searchable> items = new ArrayList<>();
@@ -13,14 +14,14 @@ public class SearchEngine {
         items.add(item);
     }
 
-    public List<Searchable> search(String searchTerm) {
-        List<Searchable> result = new ArrayList<>();
+    public TreeMap<String, Searchable> search(String searchTerm) {
+        TreeMap<String, Searchable> resultM = new TreeMap<>();
         for (Searchable item : items) {
-            if (item.getSearchTerm().toLowerCase().contains(searchTerm.toLowerCase())) {
-                result.add(item);
+            if (item != null && item.getSearchTerm().contains(searchTerm)) {
+                resultM.put(item.getName(), item);
             }
         }
-        return result;
+        return resultM;
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
