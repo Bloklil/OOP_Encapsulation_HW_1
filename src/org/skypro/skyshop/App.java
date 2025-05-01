@@ -143,6 +143,7 @@ public class App {
 
         basket.printBasket();
 
+
     }
 
     private static void printSearchResults(SearchEngine engine, String search) {
