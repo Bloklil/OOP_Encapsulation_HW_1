@@ -26,18 +26,16 @@ public class ProductBasket {
             System.out.println("в корзине пусто.");
             return;
         }
-        int total = 0;
         int specialCount = 0;
-        for (Map.Entry<String, List<Product>> entry : mapProduct.entrySet()) {
-            for (Product product : entry.getValue()) {
-                System.out.println(product.toString());
-                total += product.getPrice();
+        for (List<Product> products : mapProduct.values()) {
+            for (Product product : products) {
+                System.out.println(product);
                 if (product.isSpecial()) {
                     specialCount++;
                 }
             }
         }
-        System.out.println("Итого: " + totalPrice());
+        System.out.println("Итого: " + totalPrice() + " рублей.");
         System.out.println("Специальных товаров: " + specialCount);
     }
 

@@ -9,10 +9,8 @@ import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class App {
-
 
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
@@ -54,7 +52,6 @@ public class App {
 
         String productName = "слива";
         String productNameTwoo = "кукуруза";
-
 
         if (basket.checkProduct(productName)) {
             System.out.println(productName + " есть в корзине.");
@@ -149,7 +146,7 @@ public class App {
     }
 
     private static void printSearchResults(SearchEngine engine, String search) {
-        TreeMap<String, Searchable> results = engine.search(search);
+        Map<String, Searchable> results = engine.search(search);
         System.out.println("Результаты поиска по '" + search + "': ");
         for (Map.Entry<String, Searchable> entry : results.entrySet()) {
             System.out.println(entry.getValue().getStringRepresentation());
