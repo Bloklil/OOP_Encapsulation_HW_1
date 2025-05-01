@@ -8,9 +8,9 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SimpleProduct;
 
 import java.util.List;
+import java.util.Map;
 
 public class App {
-
 
     public static void main(String[] args) {
         ProductBasket basket = new ProductBasket();
@@ -45,8 +45,11 @@ public class App {
         basket2.addProduct(water);
         basket2.addProduct(cocos);
         basket2.addProduct(chleb);
+
         basket.printBasket();
+
         basket.totalPrice();
+
         String productName = "слива";
         String productNameTwoo = "кукуруза";
 
@@ -82,9 +85,11 @@ public class App {
         engine.add(ris);
         engine.add(sliva);
         engine.add(water);
+
         Article articleTree = new Article("про бананы", "бананами нельзя кормить обезъян");
         Article articleOne = new Article("хлеб-вреден", "хлеб вреден после 40, но это не точно");
         Article articleTwo = new Article("полезные статьи про молоко", "как же хорошо когда есть молоко");
+
         engine.add(articleTwo);
         engine.add(articleTree);
         engine.add(articleOne);
@@ -96,14 +101,13 @@ public class App {
             System.out.println(productName + " есть в корзине.");
         } else {
             System.out.println(productName + ": нету в корзине.");
-
         }
-        System.out.println("результаты поиска: ");
-        printResults(engine.search("бананы"));
 
-        printSearchResults(engine.search("попкорн"));
-        printSearchResults(engine.search("вода"));
-        printSearchResults(engine.search("слива"));
+        printSearchResults(engine, "бананы");
+        printSearchResults(engine, "хлеб");
+        printSearchResults(engine, "попкорн");
+        printSearchResults(engine, "вода");
+        printSearchResults(engine, "слива");
 
         try {
             Product product = new SimpleProduct("", 100);
@@ -141,19 +145,11 @@ public class App {
 
     }
 
-    public static void printResults(List<Searchable> print) {
-        for (Searchable s : print) {
-            if (s != null) {
-                System.out.println(s.getStringRepresentation());
-            }
-        }
-    }
-
-    private static void printSearchResults(List<Searchable> print) {
-        for (Searchable item : print) {
-            if (item != null) {
-                System.out.println(item.getStringRepresentation());
-            }
+    private static void printSearchResults(SearchEngine engine, String search) {
+        Map<String, Searchable> results = engine.search(search);
+        System.out.println("Результаты поиска по '" + search + "': ");
+        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
+            System.out.println(entry.getValue().getStringRepresentation());
         }
     }
 
@@ -167,6 +163,5 @@ public class App {
             }
         }
     }
-
 }
 
