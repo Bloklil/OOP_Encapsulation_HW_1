@@ -1,12 +1,12 @@
-package org.skypro.skyshop;
+package org.skypro.skyshop.search;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import org.skypro.skyshop.exception.BestResultNotFound;
+
+import java.util.*;
+import java.util.Comparator;
 
 public class SearchEngine {
-    private final List<Searchable> items = new ArrayList<>();
+    private final Set<Searchable> items = new HashSet<>();
 
     public SearchEngine() {
     }
@@ -15,14 +15,25 @@ public class SearchEngine {
         items.add(item);
     }
 
-    public Map<String, Searchable> search(String searchTerm) {
-        Map<String, Searchable> resultM = new TreeMap<>();
+    public Set<Searchable> search(String searchTerm) {
+        Set<Searchable> resultM = new TreeSet<>(new SearchableComparable());
         for (Searchable item : items) {
             if (item != null && item.getSearchTerm().contains(searchTerm)) {
-                resultM.put(item.getName(), item);
+                resultM.add(item);
             }
         }
         return resultM;
+    }
+
+    public static class SearchableComparable implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable s1, Searchable s2) {
+            int lengthCompare = Integer.compare(s2.getName().length(), s1.getName().length());
+            if (lengthCompare != 0) {
+                return lengthCompare;
+            }
+            return s2.getName().compareToIgnoreCase(s1.getName());
+        }
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
@@ -50,7 +61,6 @@ public class SearchEngine {
             count++;
             index += substring.length();
         }
-
         return count;
     }
 }

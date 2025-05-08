@@ -1,18 +1,21 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.article.Article;
+import org.skypro.skyshop.exception.BestResultNotFound;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class App {
-
     public static void main(String[] args) {
+
         ProductBasket basket = new ProductBasket();
         ProductBasket basket2 = new ProductBasket();
         SearchEngine engine = new SearchEngine();
@@ -46,9 +49,13 @@ public class App {
         basket2.addProduct(cocos);
         basket2.addProduct(chleb);
 
+        System.out.println("\n-------------корзина 1------------------\n");
         basket.printBasket();
-
         basket.totalPrice();
+        System.out.println("\n-----------цена корзины 1-----------\n");
+        int totalCoast = basket.totalPrice();
+        System.out.println(totalCoast + " рублей.");
+        System.out.println("\n-----------поиск товара в корзине 1---------\n");
 
         String productName = "слива";
         String productNameTwoo = "кукуруза";
@@ -58,20 +65,15 @@ public class App {
         } else {
             System.out.println(productName + ": нету в корзине.");
         }
-
-        basket.totalPrice();
-
-        int totalCoast = basket.totalPrice();
-        System.out.println(totalCoast + " рублей.");
         if (basket.checkProduct(productNameTwoo)) {
             System.out.println(productNameTwoo + " есть в корзине.");
         } else {
             System.out.println(productNameTwoo + ": нету в корзине.");
         }
+        System.out.println("\n-----------корзина 2---------\n");
 
         basket2.printBasket();
         basket2.totalPrice();
-
         engine.add(limonad);
         engine.add(popcorn);
         engine.add(konyak);
@@ -86,48 +88,60 @@ public class App {
         engine.add(sliva);
         engine.add(water);
 
-        Article articleTree = new Article("про бананы", "бананами нельзя кормить обезъян");
-        Article articleOne = new Article("хлеб-вреден", "хлеб вреден после 40, но это не точно");
-        Article articleTwo = new Article("полезные статьи про молоко", "как же хорошо когда есть молоко");
+        Article article3 = new Article("про бананы", "бананами нельзя кормить обезъян");
+        Article article1 = new Article("хлеб-вреден", "хлеб вреден после 40, но это не точно");
+        Article article2 = new Article("полезные статьи про молоко", "как же хорошо когда есть молоко");
+        Article article4 = new Article("чай", "он тонизирует на весь день");
+        Article article7 = new Article("чай про", "хороший состав");
+        Article article8 = new Article("чай каркаде", "хороший состав");
+        Article article9 = new Article("чай фи", "хороший состав");
+        Article article10 = new Article("чай каскарпоне", "хороший состав");
+        Article article5 = new Article("кофе", "кофе вреден из-за кофеина в больших количествах");
+        Article article6 = new Article("цикорий", "прекрасная замена кофе");
 
-        engine.add(articleTwo);
-        engine.add(articleTree);
-        engine.add(articleOne);
+        engine.add(article2);
+        engine.add(article3);
+        engine.add(article1);
+        engine.add(article4);
+        engine.add(article5);
+        engine.add(article6);
+        engine.add(article7);
+        engine.add(article8);
+        engine.add(article9);
+        engine.add(article10);
 
+        System.out.println("\n-----------цена корзины 2-----------\n");
         int total = basket2.totalPrice();
         System.out.println("В корзине " + total + " рублей.");
 
+        System.out.println("\n-----------поиск товара в корзине 2---------\n");
         if (basket2.checkProduct(productName)) {
             System.out.println(productName + " есть в корзине.");
         } else {
             System.out.println(productName + ": нету в корзине.");
         }
+        System.out.println("\n-----------поиск---------\n");
 
-        printSearchResults(engine, "бананы");
-        printSearchResults(engine, "хлеб");
-        printSearchResults(engine, "попкорн");
-        printSearchResults(engine, "вода");
-        printSearchResults(engine, "слива");
+        printSearchResults(engine, "чай");
+        printSearchResults(engine, "коньяк");
 
+        System.out.println("\n--------------------\n");
         try {
             Product product = new SimpleProduct("", 100);
         } catch (IllegalArgumentException e) {
             System.err.println("Ошибка при создании товара: " + e.getMessage());
         }
-
         try {
             Product product = new SimpleProduct("сайра", 0);
         } catch (IllegalArgumentException e) {
             System.err.println("Ошибка при создании товара: " + e.getMessage());
         }
-
         try {
             Searchable bestMatch = engine.findBestMatch("бананы");
             System.out.println("Лучший результат поиска: " + bestMatch.getStringRepresentation());
         } catch (BestResultNotFound e) {
             System.err.println("Ошибка поиска: " + e.getMessage());
         }
-
         try {
             Searchable bestMatch = engine.findBestMatch("бананбананбананбанан");
             System.out.println("Лучший результат поиска: " + bestMatch.getStringRepresentation());
@@ -142,20 +156,17 @@ public class App {
         printRemovedProducts(basket.removeProductName("вобла"));
 
         basket.printBasket();
-
-
     }
 
     private static void printSearchResults(SearchEngine engine, String search) {
-        Map<String, Searchable> results = engine.search(search);
-        System.out.println("Результаты поиска по '" + search + "': ");
-        for (Map.Entry<String, Searchable> entry : results.entrySet()) {
-            System.out.println(entry.getValue().getStringRepresentation());
+        Set<Searchable> results = engine.search(search);
+        for (Searchable item : results) {
+            System.out.println(item.getStringRepresentation());
         }
     }
 
     private static void printRemovedProducts(List<Product> removed) {
-        if (removed.isEmpty()) {
+        if (removed == null || removed.isEmpty()) {
             System.out.println("Список пуст.");
         } else {
             System.out.println("Удаленные продукты: ");

@@ -1,6 +1,6 @@
 package org.skypro.skyshop.product;
 
-import org.skypro.skyshop.Searchable;
+import org.skypro.skyshop.search.Searchable;
 
 public class DiscountedProduct extends Product implements Searchable {
     private final int basePrice;
@@ -8,7 +8,7 @@ public class DiscountedProduct extends Product implements Searchable {
 
     public DiscountedProduct(String nameProduct, int basePrice, int discountPersent) {
         super(nameProduct);
-        if (basePrice<=0){
+        if (basePrice <= 0) {
             throw new IllegalArgumentException("Базовая цена должна быть больше 0.");
         }
         if (discountPersent < 0 || discountPersent > 100) {
@@ -35,11 +35,6 @@ public class DiscountedProduct extends Product implements Searchable {
     @Override
     public String getSearchTerm() {
         return getNameProduct();
-    }
-
-    @Override
-    public String getContent() {
-        return "DiscountedProduct";
     }
 
     @Override

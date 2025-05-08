@@ -1,6 +1,6 @@
 package org.skypro.skyshop.product;
 
-import org.skypro.skyshop.Searchable;
+import org.skypro.skyshop.search.Searchable;
 
 public class SimpleProduct extends Product implements Searchable {
     private final int priceProduct;
@@ -31,11 +31,6 @@ public class SimpleProduct extends Product implements Searchable {
     @Override
     public String getSearchTerm() {
         return getName();
-    }
-
-    @Override
-    public String getContent() {
-        return "SimpleProduct";
     }
 
     @Override
