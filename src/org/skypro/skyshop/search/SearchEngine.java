@@ -25,17 +25,6 @@ public class SearchEngine {
         return resultM;
     }
 
-    public static class SearchableComparable implements Comparator<Searchable> {
-        @Override
-        public int compare(Searchable s1, Searchable s2) {
-            int lengthCompare = Integer.compare(s2.getName().length(), s1.getName().length());
-            if (lengthCompare != 0) {
-                return lengthCompare;
-            }
-            return s2.getName().compareToIgnoreCase(s1.getName());
-        }
-    }
-
     public Searchable findBestMatch(String search) throws BestResultNotFound {
         Searchable bestMatch = null;
         int maxCount = 0;
@@ -62,5 +51,16 @@ public class SearchEngine {
             index += substring.length();
         }
         return count;
+    }
+
+    public static class SearchableComparable implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable s1, Searchable s2) {
+            int lengthCompare = Integer.compare(s2.getName().length(), s1.getName().length());
+            if (lengthCompare != 0) {
+                return lengthCompare;
+            }
+            return s2.getName().compareToIgnoreCase(s1.getName());
+        }
     }
 }

@@ -98,6 +98,7 @@ public class App {
         Article article10 = new Article("чай каскарпоне", "хороший состав");
         Article article5 = new Article("кофе", "кофе вреден из-за кофеина в больших количествах");
         Article article6 = new Article("цикорий", "прекрасная замена кофе");
+        Article article12 = new Article("цикорий мен", "прекрасная замена кофе");
 
         engine.add(article2);
         engine.add(article3);
@@ -109,6 +110,8 @@ public class App {
         engine.add(article8);
         engine.add(article9);
         engine.add(article10);
+        engine.add(article12);
+
 
         System.out.println("\n-----------цена корзины 2-----------\n");
         int total = basket2.totalPrice();
@@ -124,6 +127,7 @@ public class App {
 
         printSearchResults(engine, "чай");
         printSearchResults(engine, "коньяк");
+        printSearchResults(engine, "цикорий");
 
         System.out.println("\n--------------------\n");
         try {
