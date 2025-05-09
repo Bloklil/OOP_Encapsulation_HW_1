@@ -44,12 +44,6 @@ public class ProductBasket {
     }
 
     public List<Product> removeProductName(String name) {
-        List<Product> removeProducts = mapProduct.get(name);
-        if (removeProducts != null) {
-            mapProduct.remove(name);
-            return removeProducts;
-        } else {
-            return Collections.emptyList();
-        }
+        return mapProduct.remove(name);
     }
 }
