@@ -129,7 +129,7 @@ public class App {
         printSearchResults(engine, "коньяк");
         printSearchResults(engine, "цикорий");
 
-        System.out.println("\n---------------------\n");
+        System.out.println("\n-----------------------\n");
         try {
             Product product = new SimpleProduct("", 100);
         } catch (IllegalArgumentException e) {
