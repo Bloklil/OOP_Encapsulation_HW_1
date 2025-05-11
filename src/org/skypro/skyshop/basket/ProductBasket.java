@@ -25,14 +25,19 @@ public class ProductBasket {
         }
 
         long specialCount = getSpecialCount();
-        mapProduct.values().stream().flatMap(Collection::stream).forEach(product -> System.out.println(product));
+        mapProduct.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
 
         System.out.println("Итого: " + totalPrice() + " рублей.");
         System.out.println("Специальных товаров: " + specialCount);
     }
 
     private long getSpecialCount() {
-        return mapProduct.values().stream().flatMap(Collection::stream).filter(Product::isSpecial).count();
+        return mapProduct.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
 
