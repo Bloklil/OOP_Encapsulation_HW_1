@@ -153,6 +153,7 @@ public class App {
             System.err.println("Ошибка поиска: " + e.getMessage());
         }
 
+
         printRemovedProducts(basket.removeProductName("банан"));
 
         basket.printBasket();
